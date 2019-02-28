@@ -1,0 +1,33 @@
+{
+  "name": "tool-libraries",
+  "version": "1.0.0",
+  "description": "达令家公有工具库",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack --config build/webpack.base.conf.js",
+    "compile": "tsc -w -p tsconfig.json"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AaronBank/tool-libraries.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AaronBank/tool-libraries/issues"
+  },
+  "homepage": "https://github.com/AaronBank/tool-libraries#readme",
+  "devDependencies": {
+    "@types/axios": "^0.14.0",
+    "awesome-typescript-loader": "^5.2.1",
+    "source-map-loader": "^0.2.4",
+    "ts-loader": "^5.3.3",
+    "tslint-language-service": "^0.9.9",
+    "typescript": "^3.3.3",
+    "webpack": "^4.29.5",
+    "webpack-cli": "^3.2.3"
+  },
+  "dependencies": {
+    "axios": "^0.18.0"
+  }
+}
