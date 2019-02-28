@@ -6,7 +6,7 @@
  * @return 二阶调用函数
  */
 
-const parseUrl: Function = (rules: string[], target: string): Function => (
+const parseUrl: Function = (rules: Array<string>, target: string): Function => (
   url: string
 ): string => {
   if (!Array.isArray(rules) || typeof url !== 'string') return url

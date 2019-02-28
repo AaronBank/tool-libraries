@@ -1,11 +1,14 @@
+/**
+ * 空数据检测模块
+ */
 import types from './types'
 
 function emptyMethod(): boolean {
   return false
 }
 
-const typeList: string[] = ['string', 'array', 'object']
-const methods: Function[] = [
+const typeList: Array<string> = ['string', 'array', 'object']
+const methods: Array<Function> = [
   (target: any): boolean => {
     return JSON.stringify(target) === '{}'
   },
@@ -24,6 +27,12 @@ typeList.forEach(
   }
 )
 
+/**
+ * 检测传入任意类型数据是否为空（注：除null、undefined、string、array、object 其他类型均返回不为空【true】）
+ *
+ * @param target 目标数据
+ * @return 返回检测结果
+ */
 function isEmpty(target: any): boolean {
   let key: string = types.typeOf(target)
 

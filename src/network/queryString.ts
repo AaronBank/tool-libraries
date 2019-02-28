@@ -1,4 +1,4 @@
-import types from '../speculation/types'
+import types from '../judge/types'
 /**
  * 拼接url与参数
  *
@@ -12,7 +12,7 @@ const mergeQuery: Function = (url: string, params: any): string => {
     return url
   }
   const isParam = url.indexOf('?', 0) !== -1
-  const query = Object.keys(params)
+  const query: any = Object.keys(params)
     .map((key: string): string => `${key}=${params[key]}`)
     .join('&')
 
