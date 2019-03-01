@@ -4,7 +4,7 @@
   "description": "达令家公有工具库",
   "main": "index.js",
   "scripts": {
-    "build": "webpack --config build/webpack.base.conf.js",
+    "build": "babel-node build/build.js",
     "compile": "tsc -w -p tsconfig.json"
   },
   "repository": {
@@ -19,9 +19,8 @@
   "homepage": "https://github.com/AaronBank/tool-libraries#readme",
   "devDependencies": {
     "@types/axios": "^0.14.0",
-    "awesome-typescript-loader": "^5.2.1",
-    "source-map-loader": "^0.2.4",
-    "ts-loader": "^5.3.3",
+    "babel-cli": "^6.26.0",
+    "ora": "^3.1.0",
     "tslint-language-service": "^0.9.9",
     "typescript": "^3.3.3",
     "webpack": "^4.29.5",

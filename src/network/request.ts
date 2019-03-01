@@ -1,225 +1,231 @@
-// import {Message, Loading} from 'element-ui';
 import axios from 'axios'
 
-import parseUrl from './parseUrl'
-import queryString from './queryString'
-import cookies from './cookies'
-import config from '@/Config'
+import types from '../function/throttle'
 
-const requestBody = ['POST', 'PUT', 'PATCH']
-const restfulApi = ['GET', 'HEAD', 'POST', 'DELETE', 'PUT', 'PATCH']
-const RESPONSE_SUCCESS_STATUS = 0
+console.log(axios, types)
 
-axios.defaults.headers.post['Content-Type'] =
-  'application/x-www-form-urlencoded'
-axios.defaults.withCredentials = true
+// // import {Message, Loading} from 'element-ui';
+// import axios from 'axios'
 
-let count = 0
-let loading = null
+// import parseUrl from './parseUrl'
+// import queryString from './queryString'
+// import cookies from './cookies'
+// import config from '@/Config'
 
-let defaultOptions = {
-  headers: {},
-  data: {},
-  timeout: 8000,
-  responseType: 'json',
-}
+// const requestBody = ['POST', 'PUT', 'PATCH']
+// const restfulApi = ['GET', 'HEAD', 'POST', 'DELETE', 'PUT', 'PATCH']
+// const RESPONSE_SUCCESS_STATUS = 0
 
-const httpFactory = method => (
-  url,
-  params = {},
-  isLoading = false,
-  postQuery = false,
-  axiosOptions = {},
-  jsonType = false
-) => {
-  let options = {
-    ...defaultOptions,
-    ...axiosOptions,
-    headers: {
-      uid: cookies.getCookie('uid'),
-      utoken: cookies.getCookie('utoken'),
-    },
-    method,
-    url: parseUrl(url),
-  }
+// axios.defaults.headers.post['Content-Type'] =
+//   'application/x-www-form-urlencoded'
+// axios.defaults.withCredentials = true
 
-  let stagingRes = null
+// let count = 0
+// let loading = null
 
-  if (jsonType) {
-    options.data = params
-  } else {
-    if (requestBody.includes(method.toUpperCase()) && !postQuery) {
-      if (JSON.stringify(params) !== '{}') {
-        let formData = new FormData()
+// let defaultOptions = {
+//   headers: {},
+//   data: {},
+//   timeout: 8000,
+//   responseType: 'json',
+// }
 
-        for (let key in params) {
-          formData.append(key, params[key])
-        }
+// const httpFactory = method => (
+//   url,
+//   params = {},
+//   isLoading = false,
+//   postQuery = false,
+//   axiosOptions = {},
+//   jsonType = false
+// ) => {
+//   let options = {
+//     ...defaultOptions,
+//     ...axiosOptions,
+//     headers: {
+//       uid: cookies.getCookie('uid'),
+//       utoken: cookies.getCookie('utoken'),
+//     },
+//     method,
+//     url: parseUrl(url),
+//   }
 
-        options.data = formData
-      }
-    } else {
-      options.url = mergeQuery(url, params)
-    }
-  }
+//   let stagingRes = null
 
-  return new Promise((resolve, reject) => {
-    const startDate = Date.now()
+//   if (jsonType) {
+//     options.data = params
+//   } else {
+//     if (requestBody.includes(method.toUpperCase()) && !postQuery) {
+//       if (JSON.stringify(params) !== '{}') {
+//         let formData = new FormData()
 
-    if (count <= 0 && isLoading) {
-      loading = Loading.service({fullscreen: true})
-    }
+//         for (let key in params) {
+//           formData.append(key, params[key])
+//         }
 
-    isLoading && count++
+//         options.data = formData
+//       }
+//     } else {
+//       options.url = mergeQuery(url, params)
+//     }
+//   }
 
-    axios(options)
-      .then(code => {
-        const result = code.data
+//   return new Promise((resolve, reject) => {
+//     const startDate = Date.now()
 
-        stagingRes = code
+//     if (count <= 0 && isLoading) {
+//       loading = Loading.service({fullscreen: true})
+//     }
 
-        if (code.headers.authority) {
-          Message.error({
-            message: '您没有操作权限，请联系管理员',
-            showClose: true,
-          })
-          reject('您没有操作权限，请联系管理员')
+//     isLoading && count++
 
-          return
-        }
+//     axios(options)
+//       .then(code => {
+//         const result = code.data
 
-        if (code.headers.iframe_relogin) {
-          Message.error({
-            message: '登陆状态失效，请重新登陆',
-            showClose: true,
-          })
-          reject('登陆状态失效，请重新登陆')
+//         stagingRes = code
 
-          return
-        }
+//         if (code.headers.authority) {
+//           Message.error({
+//             message: '您没有操作权限，请联系管理员',
+//             showClose: true,
+//           })
+//           reject('您没有操作权限，请联系管理员')
 
-        if (result.status === RESPONSE_SUCCESS_STATUS) {
-          resolve(result.data)
-        } else {
-          let msg =
-            result.errorMsg || result.errmsg || '数据请求失败，请稍后再试！'
-          Message.error({
-            message: msg,
-            showClose: true,
-          })
-          reject(msg)
-        }
-      })
-      .catch(e => {
-        stagingRes = e
-        Message.error({
-          message: '数据请求失败，请稍后再试！',
-          showClose: true,
-        })
-        reject('数据请求失败，请稍后再试！')
-      })
-      .finally(() => {
-        const poorDate = Date.now() - startDate
+//           return
+//         }
 
-        isLoading && count--
+//         if (code.headers.iframe_relogin) {
+//           Message.error({
+//             message: '登陆状态失效，请重新登陆',
+//             showClose: true,
+//           })
+//           reject('登陆状态失效，请重新登陆')
 
-        if (config.env === 'dev') {
-          console.group(
-            '%c当前请求详细信息： ',
-            'background:#000;color:#bada55'
-          )
-          console.log('%c请求url：', 'color:#A101A6;font-weight: 600', url)
-          console.log('%c请求参数：', 'color:#A101A6;font-weight: 600', params)
-          console.log('%c请求配置：', 'color:#A101A6;font-weight: 600', options)
-          console.log(
-            '%c请求耗时：',
-            'color:#A101A6;font-weight: 600',
-            `${poorDate} ms`
-          )
-          console.log(
-            '%c返回数据：',
-            'color:#A101A6;font-weight: 600',
-            stagingRes
-          )
-          console.groupEnd()
-        }
+//           return
+//         }
 
-        if (count <= 0 && isLoading) {
-          if (poorDate < 400) {
-            setTimeout(() => loading && loading.close(), 400)
-          } else {
-            loading && loading.close()
-          }
-        }
-      })
-  })
-}
+//         if (result.status === RESPONSE_SUCCESS_STATUS) {
+//           resolve(result.data)
+//         } else {
+//           let msg =
+//             result.errorMsg || result.errmsg || '数据请求失败，请稍后再试！'
+//           Message.error({
+//             message: msg,
+//             showClose: true,
+//           })
+//           reject(msg)
+//         }
+//       })
+//       .catch(e => {
+//         stagingRes = e
+//         Message.error({
+//           message: '数据请求失败，请稍后再试！',
+//           showClose: true,
+//         })
+//         reject('数据请求失败，请稍后再试！')
+//       })
+//       .finally(() => {
+//         const poorDate = Date.now() - startDate
 
-const methodsFactory = () => {
-  const collection = {}
+//         isLoading && count--
 
-  restfulApi.forEach(method => {
-    collection[method.toLowerCase()] = httpFactory(method)
-  })
+//         if (config.env === 'dev') {
+//           console.group(
+//             '%c当前请求详细信息： ',
+//             'background:#000;color:#bada55'
+//           )
+//           console.log('%c请求url：', 'color:#A101A6;font-weight: 600', url)
+//           console.log('%c请求参数：', 'color:#A101A6;font-weight: 600', params)
+//           console.log('%c请求配置：', 'color:#A101A6;font-weight: 600', options)
+//           console.log(
+//             '%c请求耗时：',
+//             'color:#A101A6;font-weight: 600',
+//             `${poorDate} ms`
+//           )
+//           console.log(
+//             '%c返回数据：',
+//             'color:#A101A6;font-weight: 600',
+//             stagingRes
+//           )
+//           console.groupEnd()
+//         }
 
-  collection.download = (url, query) => {
-    const oIframe = document.createElement('iframe')
-    const oBody = document.querySelector('body')
+//         if (count <= 0 && isLoading) {
+//           if (poorDate < 400) {
+//             setTimeout(() => loading && loading.close(), 400)
+//           } else {
+//             loading && loading.close()
+//           }
+//         }
+//       })
+//   })
+// }
 
-    oIframe.src = mergeQuery(url, query)
+// const methodsFactory = () => {
+//   const collection = {}
 
-    if (oIframe.attachEvent) {
-      oIframe.attachEvent('onreadystatechange', function() {
-        if (
-          oIframe.readyState === 'complete' ||
-          oIframe.readyState === 'loaded'
-        ) {
-          /* eslint-disable */
-          oIframe.detachEvent('onreadystatechange', arguments.callee)
-          if (!oIframe.document) {
-            Message.error({
-              message: '下载失败，请稍后再试',
-              showClose: true,
-            })
-          }
+//   restfulApi.forEach(method => {
+//     collection[method.toLowerCase()] = httpFactory(method)
+//   })
 
-          oBody.removeChild(oIframe)
-        }
-      })
-    } else {
-      oIframe.addEventListener(
-        'load',
-        function() {
-          this.removeEventListener('load', arguments.call, false)
-          if (!oIframe.document) {
-            Message.error({
-              message: '下载失败，请稍后再试',
-              showClose: true,
-            })
-          }
+//   collection.download = (url, query) => {
+//     const oIframe = document.createElement('iframe')
+//     const oBody = document.querySelector('body')
 
-          oBody.removeChild(oIframe)
-        },
-        false
-      )
-    }
+//     oIframe.src = mergeQuery(url, query)
 
-    oBody.appendChild(oIframe)
-  }
+//     if (oIframe.attachEvent) {
+//       oIframe.attachEvent('onreadystatechange', function() {
+//         if (
+//           oIframe.readyState === 'complete' ||
+//           oIframe.readyState === 'loaded'
+//         ) {
+//           /* eslint-disable */
+//           oIframe.detachEvent('onreadystatechange', arguments.callee)
+//           if (!oIframe.document) {
+//             Message.error({
+//               message: '下载失败，请稍后再试',
+//               showClose: true,
+//             })
+//           }
 
-  collection.all = (...arg) => {
-    arg.filter(fn => typeof fn === 'function' && fn.then)
+//           oBody.removeChild(oIframe)
+//         }
+//       })
+//     } else {
+//       oIframe.addEventListener(
+//         'load',
+//         function() {
+//           this.removeEventListener('load', arguments.call, false)
+//           if (!oIframe.document) {
+//             Message.error({
+//               message: '下载失败，请稍后再试',
+//               showClose: true,
+//             })
+//           }
 
-    return Promise.all(arg)
-  }
+//           oBody.removeChild(oIframe)
+//         },
+//         false
+//       )
+//     }
 
-  collection.race = (...arg) => {
-    arg.filter(fn => typeof fn === 'function' && fn.then)
+//     oBody.appendChild(oIframe)
+//   }
 
-    return Promise.race(arg)
-  }
+//   collection.all = (...arg) => {
+//     arg.filter(fn => typeof fn === 'function' && fn.then)
 
-  return collection
-}
+//     return Promise.all(arg)
+//   }
 
-export default methodsFactory()
+//   collection.race = (...arg) => {
+//     arg.filter(fn => typeof fn === 'function' && fn.then)
+
+//     return Promise.race(arg)
+//   }
+
+//   return collection
+// }
+
+// export default methodsFactory()

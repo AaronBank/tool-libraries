@@ -28,12 +28,13 @@ function operation(cookie: CookieInfo) {
  * @param {string} value 需设置cookie值(当cookie为 string时 value为必选字段)
  */
 function setCookie(cookie: string, value: string): void
-function setCookie(cookie: CookieInfo, value?: string): void
-function setCookie(cookie: Array<CookieInfo>, value?: string): void
-function setCookie(cookie: any, value: string) {
+function setCookie(cookie: CookieInfo,): void
+function setCookie(cookie: Array<CookieInfo>): void
+function setCookie(cookie: any, value?: string) {
   let args: Array<CookieInfo> = []
 
   if (typeof cookie === 'string') {
+    value = value || ''
     let cookieInfo: CookieInfo = {key: cookie, value}
 
     cookie = cookieInfo
