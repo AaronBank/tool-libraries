@@ -15,11 +15,7 @@ const parseUrl: Function = (rules: Array<string>, target: string): Function => (
 
   let reg = new RegExp(`/${rules.join('|')}`)
 
-  return /^http|https/.test(url)
-    ? url
-    : reg.test(url)
-    ? url
-    : `/${target}${url}`
+  return /^http|https/.test(url) ? url : reg.test(url) ? url : `${target}${url}`
 }
 
 export default parseUrl

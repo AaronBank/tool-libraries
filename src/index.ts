@@ -13,7 +13,7 @@ import changeCase from './judge/isEmpty'
 import types from './judge/types'
 
 import parseUrl from './network/parseUrl'
-import queryString from './network/queryString'
+import mergeQuery from './network/mergeQuery'
 // import request from './network/request'
 
 import randomColor from './random/randomColor'
@@ -34,7 +34,7 @@ const obj = {
   changeCase,
   types,
   parseUrl,
-  queryString,
+  mergeQuery,
   //   request,
   randomColor,
   rangeRandom,
