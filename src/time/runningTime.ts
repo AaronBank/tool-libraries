@@ -1,6 +1,7 @@
 /**
  * 测试功能所花费的时间
  * @param {Function} callback 需要检测的目标函数
+ * @param {Any} 函数执行返回结果
  */
 
 function runningTime(callback: Function): any {
@@ -8,11 +9,11 @@ function runningTime(callback: Function): any {
 
   console.time('startTime')
 
-  const r = callback()
+  const run = callback()
 
   console.timeEnd('endTime')
 
-  return r
+  return run
 }
 
 export default runningTime

@@ -25,15 +25,19 @@ const basicTypes: string[] = [
 
 let typeObj: Map<string, string> = new Map()
 
-const concentrated = (basicType: string): Function => (type: any): Boolean => {
-  return typeOf(type) === basicType.toLowerCase()
-}
+/**
+ * 类型检测方法工厂
+ * 
+ * @param {String} basicType 类型
+ * @return {Function} 检测函数
+ */
+const concentrated = (basicType: string): Function => (type: any): Boolean => typeOf(type) === basicType.toLowerCase()
 
 /**
  * 检测传入任意数据的数据类型
  *
- * @param type 待检测数据
- * @return 返回检测结果
+ * @param {Any} type 待检测数据
+ * @return {String} 返回检测结果
  */
 const typeOf = (type: any): string => {
   let typeName: string = Object.prototype.toString.call(type)

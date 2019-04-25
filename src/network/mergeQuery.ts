@@ -1,12 +1,12 @@
 import types from '../judge/types'
+
 /**
  * 拼接url与参数
  *
- * @param url 目标url，可默认带参数
- * @param params 需要拼接的参数
- * @return 二阶调用函数
+ * @param {String} url 目标url，可默认带参数
+ * @param {Object} params 需要拼接的参数
+ * @return {String}
  */
-
 const mergeQuery: Function = (url: string, params: any): string => {
   if (types.isObject(params) && JSON.stringify(params) === '{}') {
     return url

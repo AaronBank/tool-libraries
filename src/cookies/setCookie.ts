@@ -10,6 +10,11 @@ interface CookieInfo {
   expires?: number //  要设置的cookie值 (可选)
 }
 
+/**
+ * 设置单个值
+ *
+ * @param {CookieInfo} cookie cookie描述对象
+ */
 function operation(cookie: CookieInfo) {
   let {key, value, path = '/', domain = '', expires = 7} = cookie
   let now = new Date()

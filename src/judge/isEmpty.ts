@@ -3,21 +3,15 @@
  */
 import types from './types'
 
-function emptyMethod(): boolean {
-  return false
-}
+const emptyMethod = (): boolean => false
 
 const typeList: Array<string> = ['string', 'array', 'object']
 const methods: Array<Function> = [
-  (target: any): boolean => {
-    return JSON.stringify(target) === '{}'
-  },
-  (target: string): boolean => {
-    return !!target.trim()
-  },
-  (target: any): boolean => {
-    return !!target.length
-  },
+  (target: any): boolean => JSON.stringify(target) === '{}',
+  (target: string): boolean => !!target.trim(),
+  (target: any): boolean => !!target.length,
+  (target: Map<any, any>): boolean => target.size > 0,
+  (target: Set<any>): boolean => target.size > 0,
 ]
 const factory: Map<string, Function> = new Map()
 
@@ -28,10 +22,10 @@ typeList.forEach(
 )
 
 /**
- * 检测传入任意类型数据是否为空（注：除null、undefined、string、array、object 其他类型均返回不为空【true】）
+ * 检测传入任意类型数据是否为空（注：string、array、object、map、set（null、undefined将被视为空）除现有类型其他均被视为不为空）
  *
- * @param target 目标数据
- * @return 返回检测结果
+ * @param {Any} target 目标数据
+ * @return {Boolean} 返回检测结果
  */
 function isEmpty(target: any): boolean {
   let key: string = types.typeOf(target)

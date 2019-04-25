@@ -18,6 +18,18 @@
         "name": "tslint-language-service"
       }
     ],
-    "lib": ["es2015", "es2016", "es2018.promise", "dom", "es2017"]
+    "lib": [
+      "es6",
+      "es2015",
+      "es7",
+      "es2016",
+      "es2017",
+      "es2018",
+      "es2018.promise",
+      "dom",
+      "dom.iterable",
+      "scripthost",
+      "esnext"
+    ]
   }
 }

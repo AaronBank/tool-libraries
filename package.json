@@ -21,10 +21,9 @@
     "@types/axios": "^0.14.0",
     "babel-cli": "^6.26.0",
     "ora": "^3.1.0",
+    "tslib": "^1.9.3",
     "tslint-language-service": "^0.9.9",
-    "typescript": "^3.3.3",
-    "webpack": "^4.29.5",
-    "webpack-cli": "^3.2.3"
+    "typescript": "^3.3.3"
   },
   "dependencies": {
     "axios": "^0.18.0"

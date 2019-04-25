@@ -6,13 +6,22 @@ const startPath = path.resolve (rootPath, 'dist/');
 
 let building = ora ('Being building...');
 
-// 递归查找文件并将其导出到lib中
+let modules = [];
+
+const createIndex = (targetPatch) => {
+  const imports = modules.map(name => `import ${name} from './${name}.js'`).join('\n')
+
+  const exportDefault = `export default {\n\t${modules.join(',\n\t')}\n}`
+
+  fs.writeFileSync (targetPatch, `${imports}\n\n${exportDefault}`);
+}
+
 const buildSingle = (targetPath, name) => {
-  let isFile = fs.statSync (targetPath).isFile ();
+  let isFile = fs.statSync (targetPath).isFile();
 
   if (isFile) {
-    if (/.map/.test (name)) return;
-
+    if (/.map/.test(name)) return;
+    
     fs.readFile (targetPath, (err, data) => {
       const handleContent = data
         .toString ()
@@ -23,9 +32,11 @@ const buildSingle = (targetPath, name) => {
           const handleStr = `from './${lastStr}'`;
           return handleStr;
         });
+      /export/g.test(handleContent) && modules.push(name.split('.js')[0]);
       const libPath = path.resolve (rootPath, 'lib');
 
       fs.writeFileSync (`${libPath}/${name}`, handleContent);
+      createIndex(`${libPath}/index.js`);
     });
   } else {
     const directory = fs.readdirSync (targetPath);

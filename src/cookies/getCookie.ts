@@ -1,5 +1,6 @@
 /**
  * 获取cookie模块
+ * @param {string} key // 需要获取的键
  */
 
 function grabCookies(key: string): string | null {
@@ -23,11 +24,7 @@ function getCookie(keys: any): any {
   if (Array.isArray(keys)) {
     let results: any = {}
 
-    keys.forEach(
-      (key: string): void => {
-        results[key] = grabCookies(key)
-      }
-    )
+    keys.forEach((key: string): any => results[key] = grabCookies(key))
 
     return results
   }

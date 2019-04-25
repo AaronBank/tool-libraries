@@ -1,8 +1,8 @@
 /**
  * 清空客户端cookie模块
  *
- * @param {string[]} domains 需要清除cookie的域名集合
- * @param {string[]} paths 需要清除cookie的路径集合
+ * @param {string[]} domains 需要清除cookie 域集合
+ * @param {string[]} paths 需要清除cookie 作用于集合
  */
 
 function clearCookie(
@@ -18,19 +18,7 @@ function clearCookie(
   if (keys) {
     exp.setDate(exp.getDate() - 1)
 
-    keys.forEach(
-      (key: string): void => {
-        domains.forEach(
-          (domain: string): void => {
-            paths.forEach(
-              (path: string): void => {
-                document.cookie = `${key}=0;path=${path};Domain=${domain};expires=${exp.toUTCString()}`
-              }
-            )
-          }
-        )
-      }
-    )
+    keys.forEach((key: string): any => domains.forEach((domain: string): any => paths.forEach((path: string): any => document.cookie = `${key}=0;path=${path};Domain=${domain};expires=${exp.toUTCString()}`)))
   }
 }
 

@@ -5,9 +5,9 @@
  * 默认情况下，throttle将在你调用的第一时间尽快执行这个function，(第一次和最后一次都执行function)
  * 如果你想禁用第一次首先执行的话，传递{leading: false}，
  * 还有如果你想禁用最后一次执行的话，传递{trailing: false}。
- * @param {*} func
- * @param {*} wait
- * @param {*} options
+ * @param {Any} func
+ * @param {Number} wait
+ * @param {Any} options
  */
 
 function throttle(func: any, wait: number, options: any) {
@@ -15,7 +15,7 @@ function throttle(func: any, wait: number, options: any) {
   let previous = 0
   if (!options) options = {}
 
-  const throttled: any = function(...args: Array<any>) {
+  const throttled: any = (...args: Array<any>): void => {
     const now = new Date().getTime()
     // leading：false 表示禁用第一次执行
     if (!previous && options.leading === false) previous = now
@@ -39,7 +39,7 @@ function throttle(func: any, wait: number, options: any) {
     }
   }
 
-  throttled.cancel = function(...args: Array<any>) {
+  throttled.cancel = (...args: Array<any>): void => {
     clearTimeout(timeout)
     previous = 0
     timeout = null
