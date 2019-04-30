@@ -1,6 +1,6 @@
 <h1 style="font-size: 40px;color: #222; text-align: center">daling-libraries </h1>
-<div align="center" style="display:flex;justify-content: center;">
-  <a href="https://github.com/AaronBank/tool-libraries"><img style="width: 160px;height:160px;border-radius:80px;" src="https://raw.githubusercontent.com/AaronBank/static-files/master/images/tool-logo.jpg" alt="tool-libraries"></a>
+<div align="center">
+  <img width="200" height="200" src="https://raw.githubusercontent.com/AaronBank/static-files/master/images/tool-logo.jpg" alt="tool-libraries">
 </div>
 
 <div align="center">
