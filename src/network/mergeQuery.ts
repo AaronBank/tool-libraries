@@ -1,4 +1,4 @@
-import types from '../judge/types'
+import isEmpty from '../judge/isEmpty'
 
 /**
  * 拼接url与参数
@@ -8,9 +8,8 @@ import types from '../judge/types'
  * @return {String}
  */
 const mergeQuery: Function = (url: string, params: any): string => {
-  if (types.isObject(params) && JSON.stringify(params) === '{}') {
-    return url
-  }
+  if (isEmpty(params)) return url
+
   const isParam = url.indexOf('?', 0) !== -1
   const query: any = Object.keys(params)
     .map((key: string): string => `${key}=${params[key]}`)

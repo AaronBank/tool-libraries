@@ -1,13 +1,13 @@
 /**
  * 生成指定范围随机整数
- * @param {Number} max
- * @param {Number} min
+ * @param {Number} max 最大值
+ * @param {Number} min 最小值
  * @param {String} 'both'(default)、'left'、'right'、'no'
  */
 function rangeRandom(min: number, max: number, border: string) {
   if (min === max) return 0
 
-  const range = max - min
+  const range: number = max - min
 
   let random = Math.random()
 

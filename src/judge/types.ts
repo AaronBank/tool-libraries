@@ -40,12 +40,12 @@ const concentrated = (basicType: string): Function => (type: any): Boolean => ty
  * @return {String} 返回检测结果
  */
 const typeOf = (type: any): string => {
-  let typeName: string = Object.prototype.toString.call(type)
+  const typeName: string = Object.prototype.toString.call(type)
 
   return typeObj.get(typeName) || 'unknown'
 }
 
-let caller: any = {typeOf, isNaN}
+let caller: {[index: string]: any} = {typeOf, isNaN}
 
 basicTypes.forEach(
   (item: string): void => {

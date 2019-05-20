@@ -72,7 +72,7 @@ const emit = (eventName: string, ...args: Array<any>): void => {
 
     if (!handler) return;
 
-    handler.map((item: Function) => item.apply(this, args))
+    handler.forEach((item: Function) => item.apply(this, args))
 }
 
 /**
@@ -89,9 +89,9 @@ function off(eventName: string, listener: any): void {
     if (!events[eventName]) return;
 
     const newListeners = events[eventName].filter((item: Function) => {
-        if (types.isArray(listener)) listener.includes(item)
+        if (types.isArray(listener)) return !listener.includes(item)
 
-        return item === listener
+        return item !== listener
     })
 
     events[eventName] = newListeners

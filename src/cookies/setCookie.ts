@@ -6,8 +6,8 @@ interface CookieInfo {
   key: string // 要设置的cookie键名 (必选)
   value: string // 要设置的cookie值 (必选)
   path?: string // 要设置的cookie值 (可选)
-  domain?: string //  要设置的cookie值 (可选)
-  expires?: number //  要设置的cookie值 (可选)
+  domain?: string // 要设置的cookie值 (可选)
+  expires?: number // 要设置的cookie值 (可选)
 }
 
 /**
@@ -33,7 +33,7 @@ function operation(cookie: CookieInfo) {
  * @param {string} value 需设置cookie值(当cookie为 string时 value为必选字段)
  */
 function setCookie(cookie: string, value: string): void
-function setCookie(cookie: CookieInfo,): void
+function setCookie(cookie: CookieInfo): void
 function setCookie(cookie: Array<CookieInfo>): void
 function setCookie(cookie: any, value?: string) {
   let args: Array<CookieInfo> = []
@@ -45,7 +45,7 @@ function setCookie(cookie: any, value?: string) {
     cookie = cookieInfo
   }
 
-  if ({}.toString.call(cookie) === '[object Object]') args = [cookie]
+  if (({}).toString.call(cookie) === '[object Object]') args = [cookie]
 
   if (Array.isArray(cookie)) args = cookie
 

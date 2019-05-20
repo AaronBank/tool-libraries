@@ -5,13 +5,13 @@ import types from './types'
 
 const emptyMethod = (): boolean => false
 
-const typeList: Array<string> = ['string', 'array', 'object']
+const typeList: Array<string> = ['string', 'object', 'array', 'map', 'set']
 const methods: Array<Function> = [
-  (target: any): boolean => JSON.stringify(target) === '{}',
-  (target: string): boolean => !!target.trim(),
-  (target: any): boolean => !!target.length,
-  (target: Map<any, any>): boolean => target.size > 0,
-  (target: Set<any>): boolean => target.size > 0,
+  (target: string): boolean => !target.trim(),
+  (target: {[index: string] : any}): boolean => JSON.stringify(target) === '{}',
+  (target: Array<any>): boolean => !target.length,
+  (target: Map<any, any>): boolean => target.size < 1,
+  (target: Set<any>): boolean => target.size < 1,
 ]
 const factory: Map<string, Function> = new Map()
 

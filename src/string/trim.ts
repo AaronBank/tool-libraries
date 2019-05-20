@@ -1,11 +1,16 @@
 /**
  * 去除空格
  * @param {string} str
- * @param {number} type 1-所有空格(不传), 2-前后空格，3-前空格，4-后空格
+ * @param {number} type all-所有空格(不传), around-前后空格，left-前空格，right-后空格
  */
 
-export default (str: string, type: number = 1): string => {
-  let reg: Array<RegExp> = [/\s*/g, /(^\s*)|(\s*$)/g, /(^\s*)/g, /(\s*$)/g]
+export default (str: string, type: string = 'all'): string => {
+  const types: {[index: string]: RegExp} = {
+    all: /\s*/g,
+    around: /(^\s*)|(\s*$)/g,
+    left: /(^\s*)/g,
+    right: /(\s*$)/g
+  }
 
-  return str.replace(reg[type], '')
+  return str.replace(types[type], '')
 }

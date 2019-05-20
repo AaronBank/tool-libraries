@@ -4,4 +4,4 @@
  * @param {Any} value 目标项
  * @return {number} 统计次数
  */
-export default (arr: Array<any>, value: string|number|boolean) => arr.reduce((prev, next) => prev + next === value, 0)
+export default (arr: Array<any>, value: string|number|boolean) => arr.reduce((prev, next) => prev + (next === value), 0)

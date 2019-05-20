@@ -29,14 +29,17 @@ function cleanFactory(
  * @param {string | string[] | CookieInfo[]} keys 需要删除的一个key值或者多个key值(cookie描述对象)
  */
 function delCookie(keys: string): void
+function delCookie(keys: CookieInfo): void
 function delCookie(keys: Array<string>): void
 function delCookie(keys: Array<CookieInfo>): void
 function delCookie(keys: any): void {
-  let isArr = Array.isArray(keys)
+  if (typeof keys === 'string') return cleanFactory(keys)
 
-  if (typeof keys === 'string') cleanFactory(keys)
+  if (({}).toString.call(keys) === '[object Object]') keys = [keys]
 
-  if (isArr && typeof keys[0] === 'string') keys.forEach((key: string): any => cleanFactory(key))
+  const isArr: boolean = Array.isArray(keys)
+
+  if (isArr && typeof keys[0] === 'string') return keys.forEach((key: string): any => cleanFactory(key))
 
   if (isArr && typeof keys[0] === 'object') {
     keys.forEach(
