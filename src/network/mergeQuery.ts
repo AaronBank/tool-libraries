@@ -7,7 +7,7 @@ import isEmpty from '../judge/isEmpty'
  * @param {Object} params 需要拼接的参数
  * @return {String}
  */
-const mergeQuery: Function = (url: string, params: any): string => {
+export default (url: string, params: any): string => {
   if (isEmpty(params)) return url
 
   const isParam = url.indexOf('?', 0) !== -1
@@ -17,5 +17,3 @@ const mergeQuery: Function = (url: string, params: any): string => {
 
   return query ? `${url}${isParam ? '&' : '?'}${query}` : url
 }
-
-export default mergeQuery

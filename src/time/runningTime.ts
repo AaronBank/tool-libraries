@@ -4,7 +4,7 @@
  * @param {Any} 函数执行返回结果
  */
 
-function runningTime(callback: Function): any {
+export default (callback: Function): any => {
   if (typeof callback !== 'function') return callback
 
   console.time('startTime')
@@ -15,5 +15,3 @@ function runningTime(callback: Function): any {
 
   return run
 }
-
-export default runningTime

@@ -1,33 +1,31 @@
+import types from '../judge/types'
+
 /**
  * 生成指定范围随机整数
  * @param {Number} max 最大值
  * @param {Number} min 最小值
- * @param {String} 'both'(default)、'left'、'right'、'no'
+ * @param {String} border 边界 'both'、'left'、'right'、'no'
  */
-function rangeRandom(min: number, max: number, border: string) {
+export default (min: number, max: number, border: string = 'both') => {
   if (min === max) return 0
 
   const range: number = max - min
 
-  let random = Math.random()
+  let random = Math.random() || 1
 
-  switch (border) {
-    case 'left':
-      return min + Math.floor(random * range)
-    case 'right':
-      if (random === 0) {
-        random = 1
-      }
-      return min + Math.ceil(random * range)
-    case 'no':
-      if (max - min < 1 || max - min === 1) return 'rdNum() 边界值不合理'
-      if (random === 0) {
-        random = 1
-      }
+  const processing: {[index: string]: Function} = {
+    left: () => min + Math.floor(random * range),
+    right: () => min + Math.ceil(random * range),
+    no: () => {
+      if (max - min < 1 || max - min === 1) throw Error('The boundary value is unreasonable')
       return min + Math.ceil(random * (range - 1))
-    default:
-      return min + Math.round(random * range)
+    },
+    both: () => min + Math.round(random * range)
   }
-}
 
-export default rangeRandom
+  let f: Function = processing[border]
+
+  if (!types.isFunction(f)) f = processing['both']
+
+  return f()
+}

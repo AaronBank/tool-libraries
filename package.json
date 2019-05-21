@@ -1,7 +1,7 @@
 {
   "name": "tool-libraries",
   "version": "1.0.0",
-  "description": "达令家公有工具库",
+  "description": "js开发工具库",
   "main": "lib/index.js",
   "scripts": {
     "build": "babel-node build/build.js",

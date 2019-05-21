@@ -6,7 +6,7 @@
  * @return 二阶函数
  */
 
-const parseUrl: Function = (rules: Array<string>, target: string): Function => (
+export default (rules: Array<string>, target: string): Function => (
   url: string
 ): string => {
   if (!Array.isArray(rules) || typeof url !== 'string') return url
@@ -17,5 +17,3 @@ const parseUrl: Function = (rules: Array<string>, target: string): Function => (
 
   return /^http|https/.test(url) ? url : reg.test(url) ? url : `${target}${url}`
 }
-
-export default parseUrl

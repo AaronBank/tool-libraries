@@ -27,7 +27,7 @@ typeList.forEach(
  * @param {Any} target 目标数据
  * @return {Boolean} 返回检测结果
  */
-function isEmpty(target: any): boolean {
+export default  (target: any): boolean => {
   let key: string = types.typeOf(target)
 
   if (key === 'null' || key === 'undefined') return true
@@ -36,5 +36,3 @@ function isEmpty(target: any): boolean {
 
   return method(target)
 }
-
-export default isEmpty

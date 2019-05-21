@@ -7,7 +7,7 @@
  * @param {Boolean} immediate
  */
 
-function debounce(func: any, wait: number, immediate?: boolean): any {
+const debounce: Function = (func: any, wait: number, immediate?: boolean): any => {
   let timeout: any
   return (...args: Array<any>) => {
     if (timeout) clearTimeout(timeout)
@@ -35,6 +35,6 @@ function debounce(func: any, wait: number, immediate?: boolean): any {
  * @param time
  * @param immediate
  */
-const Debounce = (time: number, immediate?: boolean): Function => (target: any, key: string, descriptor: any): any => descriptor.value = debounce(target[key], time, immediate)
+const Debounce: Function = (time: number, immediate?: boolean): Function => (target: any, key: string, descriptor: any): any => descriptor.value = debounce(target[key], time, immediate)
 
 export default { debounce, Debounce }
