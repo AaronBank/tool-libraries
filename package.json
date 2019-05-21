@@ -1,10 +1,10 @@
 {
   "name": "tool-libraries",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "js开发工具库",
   "main": "lib/index.js",
   "scripts": {
-    "build": "babel-node build/build.js",
+    "build": "tsc -p tsconfig.json && babel-node build/build.js",
     "compile": "tsc -w -p tsconfig.json"
   },
   "repository": {
