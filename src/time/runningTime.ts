@@ -7,11 +7,11 @@
 export default (callback: Function): any => {
   if (typeof callback !== 'function') return callback
 
-  console.time('startTime')
+  console.time('Spend time：')
 
   const run = callback()
 
-  console.timeEnd('endTime')
+  console.timeEnd('Spend time：')
 
   return run
 }

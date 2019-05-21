@@ -11,7 +11,7 @@ let modules = [];
 const createIndex = (targetPatch) => {
   const imports = modules.map(name => `import ${name} from './${name}.js'`).join('\n')
 
-  const exportDefault = `export default {\n\t${modules.join(',\n\t')}\n}`
+  const exportDefault = `export {\n\t${modules.join(',\n\t')}\n}`
 
   fs.writeFileSync (targetPatch, `${imports}\n\n${exportDefault}`);
 }
