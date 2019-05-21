@@ -1,16 +1,17 @@
-<h1 style="font-size: 40px;color: #222; text-align: center">tool-libraries</h1>
-<div align="center" style="display:flex;justify-content: center;">
-  <a href="https://github.com/AaronBank/tool-libraries"><img style="width: 160px;height:160px;border-radius:80px;" src="https://raw.githubusercontent.com/AaronBank/static-files/master/images/tool-logo.jpg" alt="tool-libraries"></a>
+<h1 align="center">tool-libraries</h1>
+<div align="center">
+  <a href="https://github.com/AaronBank/tool-libraries"><img width="160" src="https://raw.githubusercontent.com/AaronBank/static-files/master/images/tool-logo.jpg" alt="tool-libraries"></a>
 </div>
+
 
 <div align="center">
   <br />
-  <a href="https://github.com/AaronBank/tool-libraries/blob/master/README.ZH.md">中文文档</a>
-  <a href="https://github.com/AaronBank/tool-libraries/blob/master" style="margin-left: 12px;">英文文档</a>
+  <a href="https://github.com/AaronBank/tool-libraries/blob/master/README.ZH.md">中文文档</a> | 
+  <a href="https://github.com/AaronBank/tool-libraries/blob/master">英文文档</a>
   <br /><br />
-  <img src="https://img.shields.io/badge/license-MIT-green.svg"/>
-  <img src="https://img.shields.io/badge/npm-v6.4.1-blue.svg" style="margin-left: 12px;"/>
-  <img src="https://img.shields.io/badge/build-finished-brightgreen.svg" style="margin-left: 12px;"/>
+  <img src="https://img.shields.io/badge/license-MIT-green.svg"/> 
+  <img src="https://img.shields.io/badge/npm-v6.4.1-blue.svg"/> 
+  <img src="https://img.shields.io/badge/build-finished-brightgreen.svg"/>
 </div>
 
 ### 使用
